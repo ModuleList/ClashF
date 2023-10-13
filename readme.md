@@ -3,7 +3,8 @@
 嫌麻烦请使用[cfa](https://github.com/Kr328/ClashForAndroid)
 
 **clash配置问题影响你99%使用本模块的体验**
-**请善用clash日志**
+
+**请善用clash日志和搜索引擎**
 
 ## 模块教程 && 目录:
 
