@@ -1,0 +1,62 @@
+proxies:
+# clashMeta配置参考可以看看这个wiki
+# https://docs.metacubex.one/
+# https://clash-meta.wiki
+
+# 官方clash配置(纯英文)
+# https://github.com/Dreamacro/clash/wiki/Configuration#introduction
+#预设
+p: &p
+  type: http
+  interval: 1800
+  health-check:
+    enable: true
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+
+# 代理提供(订阅)组
+#添加/修改机场(名)请保证proxy-providers名称和proxy-groups同步添加/修改
+proxy-providers:
+  机场1:
+    <<: *p
+    url: "订阅链接"
+    path: ./proxy_providers/机场1.yaml
+
+# 代理组
+proxy-groups:
+  - name: 代理设置
+    type: select
+    proxies:
+      - 机场1
+      - 关闭代理
+
+  - name: 机场1
+    type: select
+    use:
+      - 机场1
+  - name: 关闭代理
+    type: select
+    proxies:
+      - DIRECT
+      
+
+# 分流规则提供(订阅)组
+rule-providers:
+
+
+
+# 分流规则
+rules:
+#屏蔽
+  # - RULE-SET,AD,REJECT
+  - AND,((PROCESS-NAME,clashMeta),(NETWORK,UDP)),REJECT
+#直连
+  - GEOSITE,cn,DIRECT
+  - GEOIP,CN,DIRECT
+#代理
+  - MATCH,代理设置
+
+
+# 看不懂为什么不去看文档？
+# 看不懂为什么不去看文档？
+# 看不懂为什么不去看文档？
