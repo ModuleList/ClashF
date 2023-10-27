@@ -33,3 +33,7 @@ default:
 	cd module/bin && tar -vcjf clashMeta-android-$@.tar.bz2 clashMeta-android-$@
 	rm -rf ./module/bin/clashMeta-android-$@
 	cd module && zip -r ../$(NAME).zip *
+
+clean:
+	rm -rf ./module/bin
+	rm -rf $(NAME).zip
