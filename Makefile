@@ -20,22 +20,22 @@ all:arm64-v8a armeabi-v7a\
 	x86 x86_64
 	cd module && zip -r ../$(NAME).zip *
 
-arm64-v8a:
-	 GOOS=android GOARCH=arm64-v8a cd Clash.Meta && $(BUILD) -o ../module/bin/clashMeta-android-$@
+android-arm64-v8a:
+	 GOOS=android GOARCH=arm64 cd Clash.Meta && $(BUILD) -o ../module/bin/clashMeta-android-$@
 	cd module/bin && tar -vcjf clashMeta-android-$@.tar.bz2 clashMeta-android-$@
-	rm -rf ./module/bin/clashMeta-android-$@
+	rm -rf ./module/bin/clashMeta-$@
 
-armeabi-v7a:
-	 GOOS=android GOARCH=armeabi-v7a cd Clash.Meta && $(BUILD) -o ../module/bin/clashMeta-android-$@
+android-armeabi-v7a:
+	 GOOS=android GOARCH=arm cd Clash.Meta && $(BUILD) -o ../module/bin/clashMeta-android-$@
 	cd module/bin && tar -vcjf clashMeta-android-$@.tar.bz2 clashMeta-android-$@
-	rm -rf ./module/bin/clashMeta-android-$@
+	rm -rf ./module/bin/clashMeta-$@
 
 x86:
-	 GOOS=android GOARCH=x86 cd Clash.Meta && $(BUILD) -o ../module/bin/clashMeta-android-$@
+	GOARCH=arm GOOS=linux GOARM=7 cd Clash.Meta && $(BUILD) -o ../module/bin/clashMeta-android-$@
 	cd module/bin && tar -vcjf clashMeta-android-$@.tar.bz2 clashMeta-android-$@
 	rm -rf ./module/bin/clashMeta-android-$@
 
 x86_64:
-	 GOOS=android GOARCH=x86_64 cd Clash.Meta && $(BUILD) -o ../module/bin/clashMeta-android-$@
+	 GOOS=linux GOARCH=i386 cd Clash.Meta && $(BUILD) -o ../module/bin/clashMeta-android-$@
 	cd module/bin && tar -vcjf clashMeta-android-$@.tar.bz2 clashMeta-android-$@
 	rm -rf ./module/bin/clashMeta-android-$@

@@ -221,6 +221,7 @@ updateclash() {
 
 
 start_clash() {
+    mkfir -p ${Clash_run_path}
     if [ ${adguard} == "true" ];then
         if [ ! -f "${Adguard_bin_path}" ];then
             log "err: 已开启adguard拓展 home但未刷入过adguard扩展包!"

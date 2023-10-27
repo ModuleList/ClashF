@@ -14,27 +14,49 @@ p: &p
     url: http://www.gstatic.com/generate_204
     interval: 300
 
+use: &use
+  type: select
+  use:
+  - 机场1 #机场名
 # 代理提供(订阅)组
 #添加/修改机场(名)请保证proxy-providers名称和proxy-groups同步添加/修改
 proxy-providers:
-  机场1:
+  机场1: #机场名
     <<: *p
-    url: "订阅链接"
-    path: ./proxy_providers/机场1.yaml
+    url: "这里填机场订阅"
+    path: ./proxy_providers/jichang1.yaml #保存路径
+
 
 # 代理组
 proxy-groups:
   - name: 代理设置
     type: select
     proxies:
-      - 机场1
-      - 关闭代理
+      - 香港
+      - 台湾
+      - 日本
+      - 新加坡
+      - 美国
+      - 其它地区
+      - 全部节点
+      - 直连
 
-  - name: 机场1
-    type: select
-    use:
-      - 机场1
-  - name: 关闭代理
+
+  - {name: 香港, <<: *use,filter: "(?i)港|hk|hongkong|hong kong"}
+
+  - {name: 台湾, <<: *use, filter: "(?i)台|tw|taiwan"}
+
+  - {name: 日本, <<: *use, filter: "(?i)日本|jp|japan"}
+
+  - {name: 美国, <<: *use, filter: "(?i)美|us|unitedstates|united states"}
+
+  - {name: 新加坡, <<: *use, filter: "(?i)(新|sg|singapore)"}
+
+  - {name: 其它地区, <<: *use, filter: "(?i)^(?!.*(?:🇭🇰|🇯🇵|🇺🇸|🇸🇬|🇨🇳|港|hk|hongkong|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates)).*"}
+
+  - {name: 全部节点, <<: *use}
+  
+  - name: 直连
     type: select
     proxies:
       - DIRECT
@@ -42,7 +64,6 @@ proxy-groups:
 
 # 分流规则提供(订阅)组
 rule-providers:
-
 
 
 # 分流规则

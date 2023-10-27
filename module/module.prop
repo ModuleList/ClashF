@@ -2,5 +2,5 @@ id=Clash_For_Magisk
 name=ClashF
 version=v2
 versionCode=2002
-author=黑弩
-description=支持tproxy和tun的Clash的透明代理模块 并添加许多易用功能 兼容Magisk/KernelSU
+author=heinu
+description=Clash's transparent proxy module that supports tproxy and tun and adds many easy-to-use features. Compatible with Magisk/KernelSU

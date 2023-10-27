@@ -13,7 +13,7 @@ if [ ! -f ${clash_data_dir}/clashkernel/clashMeta ];then
         tar -xjf ${MODPATH}/bin/clashMeta-android-${ABI}.tar.bz2 -C ${clash_data_dir}/clashkernel/
         mv -f ${clash_data_dir}/clashkernel/clashMeta-android-${ABI} ${clash_data_dir}/clashkernel/clashMeta
     else
-        ui_print "未找到你的架构: ${ABI}\n请使用 'make --abi ${ABI}' 编译${ABI}架构的clashMeta"
+        ui_print "Your architecture was not found: ${ABI}\nPlease use 'make --abi ${ABI}' to compile clashMeta for ${ABI} architecture"
         abort 1
     fi
 fi
@@ -24,30 +24,30 @@ mkdir -p ${clash_data_dir}/clashkernel
 unzip -o "${ZIPFILE}" -x 'META-INF/*' -d ${MODPATH} >&2
 
 if [ -f "${clash_data_dir}/config.yaml" ];then
-    ui_print "-config.yaml文件已存在 添加预设文件."
+    ui_print "-config.yaml The file already exists. Do not add the default file."
     rm -rf ${MODPATH}/config.yaml
 else
-    ui_print "-config.yaml文件不存在 添加预设文件."
+    ui_print "-config.yaml The file already exists. Do not add the default file."
 fi
 
 if [ -f "${clash_data_dir}/clash.yaml" ];then
-    ui_print "-clash.yaml文件已存在 不添加预设文件."
+    ui_print "-clash.yaml The file already exists. Do not add the default file."
     rm -rf ${MODPATH}/clash.yaml
 else
-    ui_print "-clash.yaml文件不存在 添加预设文件."
+    ui_print "-clash.yaml The file already exists. Do not add the default file."
 fi
 
 if [ -f "${clash_data_dir}/packages.list" ];then
-    ui_print "-packages.list文件已存在 不添加预设文件."
+    ui_print "-packages.list The file already exists. Do not add the default file."
     rm -rf ${MODPATH}/packages.list
 else
-    ui_print "-packages.list文件不存在 添加预设文件."
+    ui_print "-packages.list The file already exists. Do not add the default file"
 fi
 
 mv -f ${MODPATH}/clash/* /data/clash/
 rm -rf ${MODPATH}/clashkernel
 
-ui_print "- 开始设置环境权限."
+ui_print "- Start setting permissions."
 set_perm_recursive ${MODPATH} 0 0 0755 0755
 set_perm  ${MODPATH}/system/bin/setcap  0  0  0755
 set_perm  ${MODPATH}/system/bin/getcap  0  0  0755
@@ -65,23 +65,29 @@ set_perm  ${clash_data_dir}/packages.list ${system_uid} ${system_gid} 0644
 ui_print ""
 ui_print ""
 ui_print "************************************************"
-ui_print "模块文件列表:"
-ui_print "clash配置文件在/data/clash/目录下"
-ui_print "clash.config (clash启动配置)"
-ui_print "clash.yaml (clash基本配置 dns配置等)"
-ui_print "coning.yaml (订阅配置 分流规则配置)"
-ui_print "packages.list (代理黑/白名单包名 一行一个)"
+ui_print "## Module path:
+**Work path: /data/clash/""
+```
+├── adguard
+│   ├── // AdGuardHome module
+├── clash.config (clash start config)
+├── clash.yaml (clash config#1)
+├── clashkernel
+│   ├── clashMeta //clash
+├── config.yaml (clash config#2)
+├── packages.list (black/white list packages list)
+├── mosdns
+│   ├── // mosdns module
+├── scripts // clash start script
+│   ├── clash.inotify
+│   ├── clash.iptables
+│   ├── clash.service
+│   └── clash.tool 
+├── yacd
+│   ├── //yacd-Meta
+└── DeleteCache.sh
+```"
+ui_print "telegram channel: @wtdnwbzda"
 ui_print ""
-ui_print "clashMeta配置参考可以看看这个wiki"
-ui_print "https://docs.metacubex.one/"
-ui_print ""
-ui_print "官方clash配置(纯英文)"
-ui_print "https://github.com/Dreamacro/clash/wiki/Configuration#introduction"
-ui_print "************************************************"
-ui_print ""
-ui_print ""
-ui_print "telegram频道: @wtdnwbzda"
-ui_print "博客: https://www.heinu.cc"
-ui_print ""
-ui_print "！！！为了让你阅读以上消息，安装进度暂停5秒！！！"
+ui_print "In order to allow you to read the above message, the installation progress is paused for 5 seconds!"
 sleep 5

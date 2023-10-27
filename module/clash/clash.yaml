@@ -44,7 +44,7 @@ tun:
 # 开启adguard home使用这一套dns配置 1053端口为你adguardhome端口
 # dns:
   # enable: true
-  # listen: 0.0.0.0:53
+  # listen: 0.0.0.0:1053
   # ipv6: true
   # default-nameserver:
    # - 127.0.0.1:1053
