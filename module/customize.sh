@@ -6,15 +6,22 @@ system_gid="1000"
 system_uid="1000"
 clash_data_dir="/data/clash"
 modules_dir="/data/adb/modules"
+ABI=$(getprop ro.product.cpu.abi)
 
+if [ ! -f ${clash_data_dir}/clashkernel/clashMeta ];then
+    if [ -f "${MODPATH}/bin/clashMeta-android-${ABI}" ];then
+        tar -xjf ${MODPATH}/bin/clashMeta-android-${ABI}.tar.bz2 -C ${clash_data_dir}/clashkernel/
+        mv -f ${clash_data_dir}/clashkernel/clashMeta-android-${ABI} ${clash_data_dir}/clashkernel/clashMeta
+    else
+        ui_print "未找到你的架构: ${ABI}\n请使用 'make --abi ${ABI}' 编译${ABI}架构的clashMeta"
+        abort 1
+    fi
+fi
 mkdir -p ${clash_data_dir}
 mkdir -p ${clash_data_dir}/run
 mkdir -p ${clash_data_dir}/clashkernel
 
 unzip -o "${ZIPFILE}" -x 'META-INF/*' -d ${MODPATH} >&2
-if [ ! -f ${clash_data_dir}/clashkernel/clashMeta ];then
-    tar -xjf ${MODPATH}/asset/clashMeta.tar.bz2 -C ${clash_data_dir}/clashkernel/
-fi
 
 if [ -f "${clash_data_dir}/config.yaml" ];then
     ui_print "-config.yaml文件已存在 添加预设文件."

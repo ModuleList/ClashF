@@ -371,8 +371,7 @@ start_clash() {
             mv /data/clash/run/kernel.log /data/clash/run/kernel.old.log
             ulimit -SHn 1000000
             if [ ${adguard} == "true" ];then
-                nohup ${busybox_path} setuidgid ${Clash_user_group} ${Adguard_bin_path} -w ${Clash_run_path} -c ${Adguard_config_file} -l /data/clash/run/adg.log 2>&1 &
-                echo "$(${busybox_path} pidof ${Adguard_bin_path})">${Adguard_pid_file}
+                nohup ${busybox_path} setuidgid ${Clash_user_group} ${Adguard_bin_path} -w ${Clash_run_path} -c ${Adguard_config_file} --pidfile ${Adguard_pid_file} -l /data/clash/run/adg.log 2>&1 &
             fi
             if [ ${mosdns} == "true" ];then
                 nohup ${busybox_path} setuidgid ${Clash_user_group} ${Mosdns_bin_path} -d ${Clash_data_dir} -c ${Mosdns_config_file} 2>&1 &
