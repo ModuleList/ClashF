@@ -13,8 +13,13 @@ if [ ! -f ${clash_data_dir}/clashkernel/clashMeta ];then
         tar -xjf ${MODPATH}/bin/clashMeta-android-${ABI}.tar.bz2 -C ${clash_data_dir}/clashkernel/
         mv -f ${clash_data_dir}/clashkernel/clashMeta-android-${ABI} ${clash_data_dir}/clashkernel/clashMeta
     else
-        ui_print "Your architecture was not found: ${ABI}\nPlease use 'make --abi ${ABI}' to compile clashMeta for ${ABI} architecture"
-        abort 1
+        if [ -f "${MODPATH}/bin/clashMeta-android-default.tar.bz2" ];then
+            tar -xjf ${MODPATH}/bin/clashMeta-android-${ABI}.tar.bz2 -C ${clash_data_dir}/clashkernel/
+            mv -f ${clash_data_dir}/clashkernel/clashMeta-android-${ABI} ${clash_data_dir}/clashkernel/clashMeta
+        else
+            ui_print "Your architecture was not found: ${ABI}\nPlease use 'make default' to compile clashMeta for ${ABI} architecture"
+            abort 1
+        fi
     fi
 fi
 mkdir -p ${clash_data_dir}

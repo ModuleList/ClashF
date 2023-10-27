@@ -15,13 +15,11 @@ CFLAGS := -O2 -g -Wall -Werror $(CFLAGS)
 BUILD=CGO_ENABLED=0 go build -tags with_gvisor -trimpath -ldflags '-X "github.com/Dreamacro/clash/constant.Version=$(VERSION)" \
 		-X "github.com/Dreamacro/clash/constant.BuildTime=$(BUILDTIME)" \
 		-w -s -buildid='
-
-all:arm64-v8a armeabi-v7a\
-	x86 x86_64
+all: android-arm64-v8a android-armeabi-v7a
 	cd module && zip -r ../$(NAME).zip *
 
 android-arm64-v8a:
-	 GOOS=android GOARCH=arm64 cd Clash.Meta && $(BUILD) -o ../module/bin/clashMeta-android-$@
+	GOOS=android GOARCH=arm64 cd Clash.Meta && $(BUILD) -o ../module/bin/clashMeta-android-$@
 	cd module/bin && tar -vcjf clashMeta-android-$@.tar.bz2 clashMeta-android-$@
 	rm -rf ./module/bin/clashMeta-$@
 
@@ -30,12 +28,8 @@ android-armeabi-v7a:
 	cd module/bin && tar -vcjf clashMeta-android-$@.tar.bz2 clashMeta-android-$@
 	rm -rf ./module/bin/clashMeta-$@
 
-x86:
-	GOARCH=arm GOOS=linux GOARM=7 cd Clash.Meta && $(BUILD) -o ../module/bin/clashMeta-android-$@
+default:
+	cd Clash.Meta && $(BUILD) -o ../module/bin/clashMeta-android-$@
 	cd module/bin && tar -vcjf clashMeta-android-$@.tar.bz2 clashMeta-android-$@
 	rm -rf ./module/bin/clashMeta-android-$@
-
-x86_64:
-	 GOOS=linux GOARCH=i386 cd Clash.Meta && $(BUILD) -o ../module/bin/clashMeta-android-$@
-	cd module/bin && tar -vcjf clashMeta-android-$@.tar.bz2 clashMeta-android-$@
-	rm -rf ./module/bin/clashMeta-android-$@
+	cd module && zip -r ../$(NAME).zip *
