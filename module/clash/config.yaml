@@ -91,6 +91,7 @@ rule-providers:
 
 # 分流规则
 rules:
+  - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOSITE,cn))),REJECT # 禁用quic(不包括国内)
   - RULE-SET,anti-AD-white,DIRECT
   - RULE-SET,anti-AD,REJECT
   - AND,((PROCESS-NAME,clashMeta),(NETWORK,UDP)),REJECT
