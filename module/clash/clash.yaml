@@ -60,20 +60,12 @@ dns:
    - 223.5.5.5
   enhanced-mode: redir-host
   fake-ip-range: 198.18.0.1/16
-  fake-ip-filter:
-  - '*.lan'
-  - localhost.ptlogin2.qq.com
-  - '*.*.*.*.srv.nintendo.net'
-  - '*.*.*.stun.playstation.net'
-  - 'xbox.*.microsoft.com'
-  - '*.*.*.xboxlive.com'
   nameserver:
     - https://223.5.5.5/dns-query
     - https://doh.pub/dns-query
   fallback:
-    - tls://8.8.4.4:853
+    - tls://8.8.4.4
     - https://1.0.0.1/dns-query
-    - https://doh.18bit.cn/dns-query
   fallback-filter:
     geoip: true
     geoip-code: CN
