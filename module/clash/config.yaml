@@ -18,6 +18,9 @@ use: &use
   type: select
   use:
   - 机场1 #机场名
+  # - 机场2 #机场名
+
+
 # 代理提供(订阅)组
 #添加/修改机场(名)请保证proxy-providers名称和proxy-groups同步添加/修改
 proxy-providers:
@@ -25,6 +28,11 @@ proxy-providers:
     <<: *p
     url: "这里填机场订阅"
     path: ./proxy_providers/jichang1.yaml #保存路径
+
+  # 机场2: #机场名
+    # <<: *p
+    # url: "这里填机场订阅"
+    # path: ./proxy_providers/jichang2.yaml #保存路径
 
 
 # 代理组
@@ -64,17 +72,30 @@ proxy-groups:
 
 # 分流规则提供(订阅)组
 rule-providers:
-
+# anti-AD 黑名单规则
+  anti-AD:
+    type: http
+    behavior: domain
+    format: yaml
+    path: ./rule_providers/anti-AD.yaml
+    url: "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-clash.yaml?"
+    interval: 600
+  # anti-AD 白名单规则
+  anti-AD-white:
+    type: http
+    behavior: domain
+    format: yaml
+    path: ./rule_providers/anti-AD-white.yaml
+    url: "https://raw.githubusercontent.com/privacy-protection-tools/dead-horse/master/anti-ad-white-for-clash.yaml?"
+    interval: 600
 
 # 分流规则
 rules:
-#屏蔽
-  # - RULE-SET,AD,REJECT
+  - RULE-SET,anti-AD-white,DIRECT
+  - RULE-SET,anti-AD,REJECT
   - AND,((PROCESS-NAME,clashMeta),(NETWORK,UDP)),REJECT
-#直连
   - GEOSITE,cn,DIRECT
   - GEOIP,CN,DIRECT
-#代理
   - MATCH,代理设置
 
 
