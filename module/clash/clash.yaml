@@ -37,7 +37,7 @@ tun:
   device: Meta
   stack: system #system or gvisor
   dns-hijack:
-    - 127.0.0.1:53
+    - any:53
   auto-route: true
   auto-detect-interface: true
 
@@ -55,20 +55,13 @@ dns:
   enable: true
   listen: 0.0.0.0:53
   ipv6: true
-  default-nameserver:
-   - 119.29.29.29
-   - 223.5.5.5
-  enhanced-mode: redir-host
-  fake-ip-range: 198.18.0.1/16
+  nameserver-policy:
+    "geosite:cn,geoip:cn,private":
+      - https://doh.pub/dns-query
+      - https://dns.alidns.com/dns-query
   nameserver:
-    - https://223.5.5.5/dns-query
-    - https://doh.pub/dns-query
-  fallback:
     - tls://8.8.4.4
     - https://1.0.0.1/dns-query
-  fallback-filter:
-    geoip: true
-    geoip-code: CN
 
 
 # 看不懂为什么不去看文档？
